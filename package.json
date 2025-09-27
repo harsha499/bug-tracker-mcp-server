@@ -1,0 +1,85 @@
+{
+  "name": "@harsha499/bug-tracker-mcp-server",
+  "version": "1.0.0",
+  "description": "Modern MCP Server for Bug Tracking with Linear & OpenAI integration",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "bug-tracker-mcp": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run lint && rslib build",
+    "dev": "rslib build --watch",
+    "start": "node dist/index.js",
+    "lint": "eslint src --ext .ts,.tsx --fix",
+    "lint:check": "eslint src --ext .ts,.tsx",
+    "type-check": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "test": "echo \"No tests specified\" && exit 0",
+    "prepublishOnly": "npm run clean && npm run lint:check && npm run type-check && npm run build",
+    "release": "npm version patch && npm publish"
+  },
+  "keywords": [
+    "mcp",
+    "server",
+    "model-context-protocol",
+    "bug-tracker",
+    "linear",
+    "openai",
+    "claude",
+    "defect-management",
+    "issue-tracker",
+    "typescript",
+    "rslib"
+  ],
+  "author": "Harsha <harsha@example.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harsha499/bug-tracker-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/harsha499/bug-tracker-mcp-server/issues"
+  },
+  "homepage": "https://github.com/harsha499/bug-tracker-mcp-server#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "openai": "^4.24.0"
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.0.6",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.0.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}
