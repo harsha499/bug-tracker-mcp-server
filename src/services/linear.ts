@@ -1,6 +1,7 @@
+/* eslint-disable no-console */
 import axios, { AxiosResponse } from 'axios';
 
-import type { Config, LinearIssue, TeamMember } from '../types';
+import type { Config, LinearIssue, TeamMember, UpdateDefectData } from '../types';
 
 import { logger } from '@/utils/logger';
 
@@ -17,6 +18,9 @@ export class LinearService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private async graphQLRequest(query: string, variables?: Record<string, unknown>): Promise<any> {
     try {
+      console.log('GraphQL Query:', query);
+      console.log('Variables:', { teamId: process.env.LINEAR_TEAM_ID });
+
       const response: AxiosResponse = await axios.post(
         this.baseURL,
         {
@@ -25,7 +29,7 @@ export class LinearService {
         },
         {
           headers: {
-            Authorization: `Bearer ${this.apiKey}`,
+            Authorization: this.apiKey,
             'Content-Type': 'application/json',
           },
         }
@@ -34,10 +38,10 @@ export class LinearService {
       if (response.data.errors) {
         throw new Error(`Linear API Error: ${JSON.stringify(response.data.errors)}`);
       }
-
       return response.data.data;
-    } catch (error) {
-      logger.error('Linear GraphQL request failed', error);
+      // eslint-disable-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      logger.error(`Linear GraphQL request failed: ${JSON.stringify(error.response.data)}`);
       throw error;
     }
   }
@@ -87,36 +91,39 @@ export class LinearService {
     return data.issueCreate.issue as LinearIssue;
   }
 
-  async updateIssue(issueId: string, updateData: LinearIssue): Promise<LinearIssue> {
+  async updateIssue(
+    issueId: string | undefined,
+    updateData: UpdateDefectData
+  ): Promise<LinearIssue> {
     const mutation = `
-      mutation UpdateIssue($input: IssueUpdateInput!) {
-        issueUpdate(input: $input) {
-          success
-          issue {
-            id
-            identifier
-            title
-            description
-            url
-            priority
-            state {
-              id
-              name
-            }
-            assignee {
-              id
-              name
-              email
-            }
-          }
-        }
+      mutation IssueUpdate($id: String!, $input: IssueUpdateInput!) {
+  issueUpdate(id: $id, input: $input) {
+    success
+    issue {
+      id
+      identifier
+      title
+      description
+      url
+      priority
+      state {
+        id
+        name
       }
+      assignee {
+        id
+        name
+        email
+      }
+    }
+  }
+}
     `;
 
     const variables = {
+      id: issueId,
       input: {
         ...updateData,
-        id: issueId,
       },
     };
 
@@ -166,7 +173,7 @@ export class LinearService {
               id
               name
               email
-              isActive
+              active
             }
           }
         }
@@ -174,7 +181,7 @@ export class LinearService {
     `;
 
     const data = await this.graphQLRequest(query, { teamId: this.teamId });
-    return data.team.members.nodes.filter((member: TeamMember) => member.isActive);
+    return data.team.members.nodes.filter((member: TeamMember) => member.active);
   }
 
   async searchIssues(filter: {
@@ -230,5 +237,21 @@ export class LinearService {
       Urgent: 1,
     };
     return mapping[priority] ?? 3;
+  }
+
+  async getWorkflowStates(): Promise<{ id: string; name: string }[]> {
+    const query = `
+      query {
+  workflowStates {
+    nodes {
+      id
+      name
+    }
+  }
+}
+    `;
+
+    const data = await this.graphQLRequest(query, { teamId: this.teamId });
+    return data.workflowStates.nodes as { id: string; name: string }[];
   }
 }

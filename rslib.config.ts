@@ -4,8 +4,11 @@ export default defineConfig({
   lib: [
     {
       format: 'esm',
-      dts: true,
-      shims: true,
+      dts: {
+        bundle: false, // generate a single bundled .d.ts file
+        distPath: './dist', // optional, output folder
+        abortOnError: true, // optional, stop build if types fail
+      },
     },
   ],
   source: {
@@ -17,9 +20,6 @@ export default defineConfig({
     target: 'node',
     distPath: {
       root: './dist',
-    },
-    banner: {
-      js: '#!/usr/bin/env node',
     },
   },
   tools: {
@@ -35,9 +35,9 @@ export default defineConfig({
       externals: {
         // Keep these as external dependencies
         '@modelcontextprotocol/sdk': '@modelcontextprotocol/sdk',
-        'axios': 'axios',
-        'openai': 'openai',
-        'dotenv': 'dotenv',
+        axios: 'axios',
+        openai: 'openai',
+        dotenv: 'dotenv',
       },
       resolve: {
         extensions: ['.ts', '.js', '.json'],

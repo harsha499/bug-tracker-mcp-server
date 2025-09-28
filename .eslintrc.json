@@ -55,8 +55,11 @@
     "es2022": true
   },
   "ignorePatterns": [
+    "test/",
     "dist/",
     "node_modules/",
-    "*.js"
+    "*.js",
+    "rslib.config.ts",
+    "tsconfig.json"
   ]
 }

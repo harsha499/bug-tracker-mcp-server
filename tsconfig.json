@@ -3,7 +3,9 @@
     "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "node",
-    "lib": ["ES2022"],
+    "lib": [
+      "ES2022"
+    ],
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -28,12 +30,19 @@
     "verbatimModuleSyntax": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/types/*": ["src/types/*"],
-      "@/utils/*": ["src/utils/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@/types/*": [
+        "src/types/*"
+      ],
+      "@/utils/*": [
+        "src/utils/*"
+      ]
     }
   },
   "include": [
+    "tests/**/*",
     "src/**/*"
   ],
   "exclude": [

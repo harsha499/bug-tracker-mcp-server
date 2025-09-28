@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
@@ -9,7 +10,7 @@ import {
 
 import { LinearService } from '@/services/linear';
 import { OpenAIService } from '@/services/openai';
-import type { DefectData, LinearIssue, UpdateDefectData } from '@/types';
+import type { DefectData, UpdateDefectData } from '@/types';
 import { getConfig } from '@/utils/config';
 import { logger } from '@/utils/logger';
 
@@ -204,7 +205,7 @@ The defect has been added to Linear with all specified details.`,
   }
 
   private async assignDefect(defectId: string, assigneeId: string): Promise<CallToolResult> {
-    const issue = await this.linearService.updateIssue(defectId, { assignee: { id: assigneeId } });
+    const issue = await this.linearService.updateIssue(defectId, { assigneeId: assigneeId });
 
     return {
       content: [
@@ -218,7 +219,7 @@ The defect has been added to Linear with all specified details.`,
   }
 
   private async updateDefect(updateData: UpdateDefectData): Promise<CallToolResult> {
-    const updateFields: LinearIssue = {};
+    const updateFields: UpdateDefectData = {};
 
     if (updateData.title) {
       updateFields.title = updateData.title;
@@ -234,8 +235,7 @@ The defect has been added to Linear with all specified details.`,
     }
 
     if (updateData.assigneeId) {
-      updateFields.assignee = {};
-      updateFields.assignee!.id = updateData.assigneeId;
+      updateFields.assigneeId = updateData.assigneeId;
     }
 
     const issue = await this.linearService.updateIssue(updateData.id, updateFields);
@@ -254,9 +254,18 @@ The defect has been added to Linear with all specified details.`,
   private async changeDefectStatus(defectId: string, status: string): Promise<CallToolResult> {
     // For simplicity, we'll assume status mapping is handled by Linear
     // In a real implementation, you'd need to fetch available states and map them
+
+    const workflowStates = await this.linearService.getWorkflowStates();
+    const state = workflowStates.find(s => s.name.toLowerCase() === status.toLowerCase());
+    if (!state) {
+      throw new Error(
+        `Invalid status: ${status}. Available statuses: ${workflowStates.map(s => s.name).join(', ')}`
+      );
+    }
+
     const issue = await this.linearService.updateIssue(defectId, {
       // This would need proper state ID mapping in a real implementation
-      state: { name: status },
+      stateId: state.id,
     });
 
     return {
@@ -290,6 +299,8 @@ ${analysis}
     };
   }
   private async listTeamMembers(): Promise<CallToolResult> {
+    console.log('API Key:', process.env.LINEAR_API_KEY);
+    console.log('Team ID:', process.env.LINEAR_TEAM_ID);
     const members = await this.linearService.getTeamMembers();
 
     return {

@@ -8,13 +8,14 @@ export interface DefectData {
 }
 
 export interface UpdateDefectData {
-  id: string;
+  id?: string;
   title?: string;
   description?: string;
   storyPoints?: number;
   acceptanceCriteria?: string;
   status?: string;
   assigneeId?: string;
+  stateId?: string;
 }
 
 export interface LinearIssue {
@@ -39,7 +40,7 @@ export interface TeamMember {
   id: string;
   name: string;
   email: string;
-  isActive: boolean;
+  active: boolean;
 }
 
 export interface Config {
