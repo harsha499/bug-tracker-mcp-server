@@ -1,12 +1,12 @@
 {
-  "name": "@harsha499/bug-tracker-mcp-server",
+  "name": "bug-tracker-mcp-server",
   "version": "1.0.1",
   "description": "Modern MCP Server for Bug Tracking with Linear & OpenAI integration",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "bug-tracker-mcp": "./dist/index.js"
+    "bug-tracker-mcp-server": "./dist/index.js"
   },
   "exports": {
     ".": {
