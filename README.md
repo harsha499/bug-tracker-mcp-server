@@ -441,6 +441,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 For support and questions:
-- 📧 Email: your.email@example.com
+- 📧 Email: harha49@gmail.com
 - 🐛 Issues: [GitHub Issues](https://github.com/your-username/bug-tracker-mcp-server/issues)
 - 💬 Discussions: [GitHub Discussions](https://github.com/your-username/bug-tracker-mcp-server/discussions)
