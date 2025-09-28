@@ -18,8 +18,6 @@ export class LinearService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private async graphQLRequest(query: string, variables?: Record<string, unknown>): Promise<any> {
     try {
-      console.log('GraphQL Query:', query);
-      console.log('Variables:', { teamId: process.env.LINEAR_TEAM_ID });
 
       const response: AxiosResponse = await axios.post(
         this.baseURL,

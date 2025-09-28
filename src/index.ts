@@ -300,8 +300,6 @@ ${analysis}
     };
   }
   private async listTeamMembers(): Promise<CallToolResult> {
-    console.log('API Key:', process.env.LINEAR_API_KEY);
-    console.log('Team ID:', process.env.LINEAR_TEAM_ID);
     const members = await this.linearService.getTeamMembers();
 
     return {
