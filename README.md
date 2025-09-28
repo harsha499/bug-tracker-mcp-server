@@ -18,12 +18,12 @@ A modern Model Context Protocol (MCP) server for bug tracking integration with L
 
 ### Global Installation (Recommended)
 ```bash
-npm install -g @your-username/bug-tracker-mcp-server
+npm install -g bug-tracker-mcp-server
 ```
 
 ### Local Installation
 ```bash
-npm install @your-username/bug-tracker-mcp-server
+npm install bug-tracker-mcp-server
 ```
 
 ## 🔧 Configuration
@@ -50,8 +50,8 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "bug-tracker": {
-      "command": "npx",
-      "args": ["@your-username/bug-tracker-mcp-server"],
+      "command": "node",
+      "args": ["C:/Users/HP/AppData/Roaming/npm/node_modules/bug-tracker-mcp-server/dist/index.js"],
       "env": {
         "LINEAR_API_KEY": "lin_api_xxxxxxxxxx",
         "LINEAR_TEAM_ID": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
@@ -77,8 +77,8 @@ Then use in Claude Desktop config:
 {
   "mcpServers": {
     "bug-tracker": {
-      "command": "npx",
-      "args": ["@your-username/bug-tracker-mcp-server"]
+      "command": "node",
+      "args": ["C:/Users/HP/AppData/Roaming/npm/node_modules/bug-tracker-mcp-server/dist/index.js"],
     }
   }
 }
