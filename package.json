@@ -1,6 +1,6 @@
 {
   "name": "bug-tracker-mcp-server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Modern MCP Server for Bug Tracking with Linear & OpenAI integration",
   "type": "module",
   "main": "./dist/index.js",
