@@ -18,7 +18,6 @@ export class LinearService {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private async graphQLRequest(query: string, variables?: Record<string, unknown>): Promise<any> {
     try {
-
       const response: AxiosResponse = await axios.post(
         this.baseURL,
         {
