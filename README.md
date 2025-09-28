@@ -350,7 +350,7 @@ git push -u origin main
 npm login
 
 # Set up package scope (optional)
-npm init --scope=@your-username
+npm init
 
 # Test publish (dry run)
 npm publish --dry-run
@@ -396,26 +396,7 @@ git push --follow-tags
 4. **NPM Package Issues**
    - Check Node.js version compatibility (18+)
    - Clear npm cache: `npm cache clean --force`
-   - Try global reinstall: `npm uninstall -g @your-username/bug-tracker-mcp-server && npm install -g @your-username/bug-tracker-mcp-server`
-
-### Debug Mode
-Set `NODE_ENV=development` for detailed logging:
-```json
-{
-  "mcpServers": {
-    "bug-tracker": {
-      "command": "npx",
-      "args": ["@your-username/bug-tracker-mcp-server"],
-      "env": {
-        "NODE_ENV": "development",
-        "LINEAR_API_KEY": "your_key",
-        "LINEAR_TEAM_ID": "your_team_id",
-        "OPENAI_API_KEY": "your_openai_key"
-      }
-    }
-  }
-}
-```
+   - Try global reinstall: `npm uninstall -g bug-tracker-mcp-server && npm install -g bug-tracker-mcp-server`
 
 ## 🤝 Contributing
 
