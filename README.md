@@ -34,6 +34,7 @@ npm install bug-tracker-mcp-server
 1. Go to [Linear API Settings](https://linear.app/settings/api)
 2. Create a new API key
 3. Get your team ID from Linear team settings (URL: `/team/[TEAM_ID]/settings`)
+4. https://studio.apollographql.com/public/Linear-API/variant/current/explorer for exploring
 
 #### OpenAI API
 1. Go to [OpenAI API Keys](https://platform.openai.com/api-keys)
