@@ -45,7 +45,7 @@ npm install bug-tracker-mcp-server
 Add to your `claude_desktop_config.json`:
 
 **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-**Windows:** `%APPDATA%/Claude/claude_desktop_config.json`
+**Windows:** `%APPDATA%/Roaming/Claude/claude_desktop_config.json`
 
 ```json
 {

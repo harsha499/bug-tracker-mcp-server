@@ -30,7 +30,7 @@ async function main() {
   });
 
   const data = await res.json();
-  console.log(JSON.stringify(data, null, 2));
+  console.error(JSON.stringify(data, null, 2));
 }
 
 main().catch(console.error);

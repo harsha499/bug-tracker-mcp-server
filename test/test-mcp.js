@@ -26,13 +26,13 @@ const server = spawn('node', ['dist/index.js'], {
 });
 
 server.stdout.on('data', data => {
-  console.log('Server Response:', data.toString());
+  console.error('Server Response:', data.toString());
 });
 
 // Send test requests
 testRequests.forEach((request, index) => {
   setTimeout(() => {
-    console.log(`Sending request ${index + 1}:`, request);
+    console.error(`Sending request ${index + 1}:`, request);
     server.stdin.write(JSON.stringify(request) + '\n');
   }, index * 10000);
 });

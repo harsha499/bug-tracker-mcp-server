@@ -1,7 +1,7 @@
 export const logger = {
   info: (message: string, ...args: unknown[]): void => {
     // eslint-disable-next-line no-console
-    console.log(`[INFO] ${message}`, ...args);
+    console.error(`[INFO] ${message}`, ...args);
   },
   error: (message: string, error?: unknown): void => {
     // eslint-disable-next-line no-console

@@ -253,9 +253,6 @@ The defect has been added to Linear with all specified details.`,
   }
 
   private async changeDefectStatus(defectId: string, status: string): Promise<CallToolResult> {
-    // For simplicity, we'll assume status mapping is handled by Linear
-    // In a real implementation, you'd need to fetch available states and map them
-
     const workflowStates = await this.linearService.getWorkflowStates();
     const state = workflowStates.find(s => s.name.toLowerCase() === status.toLowerCase());
     if (!state) {
@@ -265,7 +262,6 @@ The defect has been added to Linear with all specified details.`,
     }
 
     const issue = await this.linearService.updateIssue(defectId, {
-      // This would need proper state ID mapping in a real implementation
       stateId: state.id,
     });
 
@@ -299,6 +295,7 @@ ${analysis}
       isError: false,
     };
   }
+
   private async listTeamMembers(): Promise<CallToolResult> {
     const members = await this.linearService.getTeamMembers();
 
