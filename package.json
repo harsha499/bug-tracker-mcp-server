@@ -1,6 +1,6 @@
 {
   "name": "bug-tracker-mcp-server",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Modern MCP Server for Bug Tracking with Linear & OpenAI integration.",
   "type": "module",
   "main": "./dist/index.js",
@@ -25,7 +25,7 @@
     "dev": "rslib build --watch",
     "start": "node dist/index.js",
     "lint": "eslint src --ext .ts,.tsx --fix",
-    "lint:check": "eslint src --ext .ts,.tsx",
+    "lint:check": "eslint src --ext .ts,.tsx --fix",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist",
     "test": "echo \"No tests specified\" && exit 0",
